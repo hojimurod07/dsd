@@ -21,7 +21,7 @@ class Calc(QMainWindow):
         font.setPointSize(18)
         self.nav_text.setFont(font)
         self.nav.addWidget(self.nav_text)
-        self.history_btn = QPushButton("History")
+        self.history_btn = QPushButton("")
         self.history_btn.setFixedSize(100, 50)
         self.history_btn.setIconSize(QSize(24, 24))
 
