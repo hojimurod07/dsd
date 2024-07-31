@@ -10,8 +10,17 @@ class Calc(QMainWindow):
 
         self.setWindowTitle("Calculator")
         self.setFixedSize(400,640)
+        self.asosiy = QVBoxLayout()
+
         self.navHeader()
-        self.setCentralWidget(self.nav_widget)
+        self.textEdit()
+        self.asosiy.addLayout(self.nav)
+        self.asosiy.addLayout(self.textArea)
+
+        self.w = QWidget()
+        self.w.setLayout(self.asosiy)
+        self.setCentralWidget(self.w)
+
 
 
     def navHeader(self):
@@ -19,7 +28,7 @@ class Calc(QMainWindow):
         self.nav_btn = QPushButton(" ")
         self.nav_btn.setFixedSize(70, 50)
         self.nav_btn.setIconSize(QSize(24, 24))
-        self.nav_btn.setIcon(QIcon('nav.png'))
+        self.nav_btn.setIcon(QIcon('new-tab.png'))
         self.nav.addWidget(self.nav_btn)
         self.nav_text = QLabel("Standart")
         font = QFont()
@@ -34,6 +43,18 @@ class Calc(QMainWindow):
         self.history_btn.setIcon(QIcon('logo.png'))
         self.nav.addWidget(self.history_btn)
 
-        self.nav_widget = QWidget()
-        self.nav_widget.setLayout(self.nav)
 
+
+    def textEdit(self):
+        self.textArea = QHBoxLayout()
+
+        self.line = QLineEdit()
+        self.textArea.addWidget(self.line)
+        self.line.setStyleSheet('background : #fffff; color: #000000; font-size: 80px; font-weight: bold; border: none;')
+        self.line.setAlignment(Qt.AlignRight)
+        # Move the cursor to the end of the text
+
+
+        # Set a fixed height to make it look more like a calculator
+        self.line.setFixedHeight(60)
+        self.line.setText("0")
