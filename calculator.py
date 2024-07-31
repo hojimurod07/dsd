@@ -25,7 +25,7 @@ class Calc(QMainWindow):
         self.history_btn.setFixedSize(100, 50)
         self.history_btn.setIconSize(QSize(24, 24))
 
-        self.history_btn.setStyleSheet("QPushButton { text-align: left; padding-left: 10px; }")
+        self.history_btn.setStyleSheet("QPushButton { text-align: left; padding-left: 20px; }")
         self.history_btn.setIcon(QIcon('logo.png'))
         self.nav.addWidget(self.history_btn)
 
