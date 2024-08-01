@@ -23,6 +23,8 @@ class Calc(QMainWindow):
         self.setCentralWidget(self.w)
 
 
+        self.nav_btn.clicked.connect(self.nev_tab)
+
 
     def navHeader(self):
         self.nav = QHBoxLayout()
@@ -44,6 +46,8 @@ class Calc(QMainWindow):
         self.history_btn.setIcon(QIcon('logo.png'))
         self.nav.addWidget(self.history_btn)
 
+    def nev_tab(self):
+        self.line.setText("0")
 
 
     def textEdit(self):
@@ -64,14 +68,27 @@ class Calc(QMainWindow):
         self.line.setCursorPosition(len(self.line.text()))
 
     def button_clicked(self):
-        current_text = self.line.text()
-        button_text = self.sender().text()
+        button = self.sender()  # Get the button that was clicked
+        text = button.text()  # Get the text of the button
 
-        # Replace "0" with the button text if "0" is the only character
-        if current_text == '0':
-            self.line.setText(button_text)
+        current_text = self.line.text()
+
+        if current_text == '0' and text not in ['+', '-', '*', '/']:
+            # Replace '0' if the first input is a number or dot
+            self.line.setText(text)
+        elif text == 'C':
+            # Clear the input if 'C' is clicked
+            self.line.setText('0')
+        elif text == '=':
+            # Evaluate the expression if '=' is clicked
+            try:
+                result = str(eval(current_text))
+                self.line.setText(result)
+            except Exception as e:
+                self.line.setText('Error')
         else:
-            self.line.setText(current_text + button_text)
+            # Append the text to the existing input
+            self.line.setText(current_text + text)
 
 
     def buttons_created(self):
@@ -132,6 +149,7 @@ class Calc(QMainWindow):
             button.setFixedSize(95, 65)  # Slightly larger buttons for a better look
             button.setStyleSheet(button_style)
             self.main_buttons.addWidget(button, row, col)
+            button.clicked.connect(self.button_clicked)
             button_objects.append(button)
             col += 1
             if col > 3:  # 4 buttons per row
